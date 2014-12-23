@@ -48,7 +48,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
-    device/moto/shamu/media_codecs_ffmpeg.xml:system/etc/media_codecs.xml 
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
