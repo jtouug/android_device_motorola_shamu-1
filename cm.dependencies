@@ -1,0 +1,12 @@
+[
+ {
+   "remote":      "github",
+   "repository":  "mydongistiny/android_kernel_motorola_shamu",
+   "target_path": "kernel/moto/shamu",
+   "revision":    "cm-12.0"
+ },
+ {
+   "repository": "android_device_qcom_common",
+   "target_path": "device/qcom/common"
+ }
+]
