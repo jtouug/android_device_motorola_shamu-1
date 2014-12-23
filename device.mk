@@ -150,6 +150,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.audio.monitorRotation=true
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    fmas.spkr_6ch=35,20,110 \
+    fmas.spkr_2ch=35,25 \
+    fmas.spkr_angles=10 \
+    fmas.spkr_sgain=0 \
+    media.aac_51_output_enabled=true \
+    drm.service.enabled=true \
+    persist.audio.dualmic.config=endfire \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=false 
+
 # Audio effects
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
@@ -222,6 +234,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=10 \
     telephony.lteOnCdmaDevice=1
+
+# Allow carrier tethering
+PRODUCT_PROPERTY_OVERRIDES += \
+net.tethering.noprovisioning=true
 
 # SIM based FSG loading default enabled
 PRODUCT_PROPERTY_OVERRIDES += \
