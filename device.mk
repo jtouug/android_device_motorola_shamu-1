@@ -39,7 +39,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/moto/shamu/media_profiles.xml:system/etc/media_profiles.xml \
-    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml
+    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
 
 PRODUCT_COPY_FILES += \
     device/moto/shamu/mixer_paths.xml:system/etc/mixer_paths.xml
@@ -47,8 +48,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -162,12 +162,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    fmas.spkr_6ch=35,20,110 \
-    fmas.spkr_2ch=35,25 \
-    fmas.spkr_angles=10 \
-    fmas.spkr_sgain=0 \
-
 PRODUCT_PACKAGES += \
     libqomx_core \
     libmmcamera_interface \
@@ -189,10 +183,6 @@ PRODUCT_PACKAGES += \
 # for off charging mode
 PRODUCT_PACKAGES += \
     charger_res_images
-
-# for launcher layout
-PRODUCT_PACKAGES += \
-    ShamuLayout
 
 PRODUCT_PACKAGES += \
     bdAddrLoader
@@ -284,8 +274,11 @@ PRODUCT_COPY_FILES += \
     device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
 
 # NFCEE access control
-PRODUCT_COPY_FILES += \
-    device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    PRODUCT_COPY_FILES += device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+else
+    PRODUCT_COPY_FILES += device/moto/shamu/nfcee_access_debug.xml:system/etc/nfcee_access.xml
+endif
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
