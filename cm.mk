@@ -23,4 +23,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT=google/shamu/shamu:5.0.1/LRX22C/1602158:user/release-keys \
     PRIVATE_BUILD_DESC="shamu-user 5.0.1 LRX22C 1602158 release-keys"
 
-PRODUCT_BOOTANIMATION := device/oneplus/bacon/bootanimation.zip
+PRODUCT_BOOTANIMATION := device/moto/shamu/bootanimation.zip
