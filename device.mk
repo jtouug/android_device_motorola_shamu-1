@@ -197,7 +197,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=493
+    ro.sf.lcd_density=560
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.lcd_density=493
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
