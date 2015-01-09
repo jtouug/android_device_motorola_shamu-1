@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/moto/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/moto/shamu/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl:system/usr/keylayout/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl \
-    device/moto/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
+	device/moto/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
 
 PRODUCT_COPY_FILES += \
     device/moto/shamu/audio_policy.conf:system/etc/audio_policy.conf \
@@ -39,8 +39,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/moto/shamu/media_profiles.xml:system/etc/media_profiles.xml \
-    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
+    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml
 
 PRODUCT_COPY_FILES += \
     device/moto/shamu/mixer_paths.xml:system/etc/mixer_paths.xml
@@ -48,7 +47,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -162,6 +162,12 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    fmas.spkr_6ch=35,20,110 \
+    fmas.spkr_2ch=35,25 \
+    fmas.spkr_angles=10 \
+    fmas.spkr_sgain=0 \
+
 PRODUCT_PACKAGES += \
     libqomx_core \
     libmmcamera_interface \
@@ -183,6 +189,10 @@ PRODUCT_PACKAGES += \
 # for off charging mode
 PRODUCT_PACKAGES += \
     charger_res_images
+
+# for launcher layout
+PRODUCT_PACKAGES += \
+    ShamuLayout
 
 PRODUCT_PACKAGES += \
     bdAddrLoader
@@ -246,7 +256,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.camera.ois.disable=0
 
-
 # GPS configuration
 PRODUCT_COPY_FILES += \
     device/moto/shamu/gps.conf:system/etc/gps.conf
@@ -282,11 +291,8 @@ PRODUCT_COPY_FILES += \
     device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
 
 # NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    PRODUCT_COPY_FILES += device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
-else
-    PRODUCT_COPY_FILES += device/moto/shamu/nfcee_access_debug.xml:system/etc/nfcee_access.xml
-endif
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
