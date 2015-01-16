@@ -17,6 +17,7 @@
 import init.shamu.usb.rc
 import init.shamu.power.rc
 import init.shamu.diag.rc
+import init.performance_profiles.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -135,8 +136,6 @@ on boot
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     chown bluetooth net_bt_stack /sys/module/hci_uart/parameters/ath_lpm
     chown bluetooth net_bt_stack /sys/module/hci_uart/parameters/ath_btwrite
-    chown system system /sys/class/leds/charging/brightness
-    chown system system /sys/class/leds/charging/max_brightness
     chown system system /sys/module/sco/parameters/disable_esco
     chown bluetooth net_bt_stack /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
@@ -178,10 +177,6 @@ on boot
     chown system system /sys/bus/i2c/devices/1-004a/tsp
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
-
-    # e/frandom permissions
-    chmod 444 /dev/erandom
-    chmod 444 /dev/frandom
 
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
@@ -251,8 +246,18 @@ on boot
     chown media media /sys/devices/c55_ctrl/gpio_core/value
     chown media media /sys/devices/c55_ctrl/gpio_reset/value
 
-    # Prevent permission denied error for telephony
-    chmod 0644 /proc/cmdline
+    chown system system /sys/class/leds/charging/brightness
+    chown system system /sys/class/leds/charging/max_brightness
+    write /sys/class/leds/charging/trigger battery-charging
+    write /sys/class/leds/charging/max_brightness 1
+
+    # LED permissions
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chmod 664 /sys/class/leds/red/brightness
+    chmod 664 /sys/class/leds/green/brightness
+    chmod 664 /sys/class/leds/blue/brightness
 
 # subsystem ramdump collection
 on property:persist.sys.qc.sub.rdump.on=*
@@ -533,13 +538,14 @@ on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
 service qseecomd /system/bin/qseecomd
-   class core
-   user root
-   group root
+    class core
+    user root
+    group root
 
 service mpdecision /system/bin/mpdecision --avg_comp
-   class main
-   user root
+    class main
+    user root
+    disabled
 
 service ss_ramdump /system/bin/subsystem_ramdump
     class main
@@ -548,14 +554,14 @@ service ss_ramdump /system/bin/subsystem_ramdump
     disabled
 
 service thermal-engine /system/bin/thermal-engine
-   class main
-   user root
-   group root
+    class main
+    user root
+    group root
 
 service time_daemon /system/bin/time_daemon
-   class late_start
-   user root
-   group root
+    class late_start
+    user root
+    group root
 
 on property:init.svc.bootanim=stopped
     start usf-post-boot

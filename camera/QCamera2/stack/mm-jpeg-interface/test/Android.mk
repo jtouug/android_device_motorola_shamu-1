@@ -16,7 +16,7 @@ LOCAL_CFLAGS += -DUSE_ION
 endif
 
 OMX_HEADER_DIR := frameworks/native/include/media/openmax
-OMX_CORE_DIR := device/moto/shamu/camera/mm-image-codec
+OMX_CORE_DIR := device/motorola/shamu/camera/mm-image-codec
 
 LOCAL_C_INCLUDES := $(MM_JPEG_TEST_PATH)
 LOCAL_C_INCLUDES += $(MM_JPEG_TEST_PATH)/../inc
@@ -32,6 +32,7 @@ LOCAL_SRC_FILES := mm_jpeg_test.c
 
 LOCAL_32_BIT_ONLY := true
 LOCAL_MODULE           := mm-jpeg-interface-test
+LOCAL_PRELINK_MODULE   := false
 LOCAL_SHARED_LIBRARIES := libcutils libdl libmmjpeg_interface
 
 include $(BUILD_EXECUTABLE)
@@ -53,7 +54,7 @@ LOCAL_CFLAGS += -DUSE_ION
 endif
 
 OMX_HEADER_DIR := frameworks/native/include/media/openmax
-OMX_CORE_DIR := device/moto/shamu/camera/mm-image-codec
+OMX_CORE_DIR := device/motorola/shamu/camera/mm-image-codec
 
 LOCAL_C_INCLUDES := $(MM_JPEG_TEST_PATH)
 LOCAL_C_INCLUDES += $(MM_JPEG_TEST_PATH)/../inc
@@ -69,6 +70,7 @@ LOCAL_SRC_FILES := mm_jpegdec_test.c
 
 LOCAL_32_BIT_ONLY := true
 LOCAL_MODULE           := mm-jpegdec-interface-test
+LOCAL_PRELINK_MODULE   := false
 LOCAL_SHARED_LIBRARIES := libcutils libdl libmmjpeg_interface
 
 include $(BUILD_EXECUTABLE)

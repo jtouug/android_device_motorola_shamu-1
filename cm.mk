@@ -9,9 +9,9 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/moto/shamu/aosp_shamu.mk)
+$(call inherit-product, device/motorola/shamu/aosp_shamu.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/moto/shamu/overlay-cm
+DEVICE_PACKAGE_OVERLAYS += device/motorola/shamu/overlay-cm
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := cm_shamu
@@ -24,4 +24,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="shamu-user 5.0.1 LRX22C 1602158 release-keys" \
     BUILD_DISPLAY_ID=LRX22G
 
-PRODUCT_BOOTANIMATION := device/moto/shamu/bootanimation.zip
+PRODUCT_BOOTANIMATION := device/motorola/shamu/bootanimation.zip
