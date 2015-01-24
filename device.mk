@@ -42,8 +42,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/shamu/okgoogle/TriggerTrainingService.apk:system/priv-app/TriggerTrainingService/TriggerTrainingService.apk
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/audio_policy.conf:system/etc/audio_policy.conf \
-    device/motorola/shamu/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    device/motorola/shamu/audio_policy.conf:system/etc/audio_policy.conf
 
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/media_profiles.xml:system/etc/media_profiles.xml \
@@ -96,10 +95,6 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4356
 # WiFi cal NVRAM file
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
-
-# For SPN display
-PRODUCT_COPY_FILES += \
-    device/motorola/shamu/spn-conf.xml:system/etc/spn-conf.xml
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -216,9 +211,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=560
-
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    persist.sys.lcd_density=500
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
