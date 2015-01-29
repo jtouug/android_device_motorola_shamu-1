@@ -108,6 +108,16 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 TARGET_RECOVERY_FSTAB = device/motorola/shamu/fstab.shamu
 TARGET_RELEASETOOLS_EXTENSIONS := device/motorola/shamu
 
+# TWRP
+TARGET_RECOVERY_DEVICE_DIRS := device/motorola/shamu
+DEVICE_RESOLUTION := 1440x2560
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_L_CRYPTO := true
+BOARD_HAS_NO_REAL_SDCARD := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TW_SCREEN_BLANK_ON_BOOT := true
+
 # Support Native Layer RF cutback
 BOARD_USES_CUTBACK_IN_RILD := true
 
@@ -126,7 +136,6 @@ BOARD_SEPOLICY_UNION += \
         file.te \
         gsiffd.te \
         irsc_util.te \
-        kernel.te \
         mdm_helper.te \
         mediaserver.te \
         mpdecision.te \
@@ -141,7 +150,6 @@ BOARD_SEPOLICY_UNION += \
         surfaceflinger.te \
         system_app.te \
         system_server.te \
-        tap2wake_dev.te \
         tcmd.te \
         tee.te \
         te_macros \
