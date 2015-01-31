@@ -314,6 +314,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    dalvik.vm.heapgrowthlimit=256m
 
+# F2FS
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/format-system.sh:system/bin/format-system.sh
+
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
