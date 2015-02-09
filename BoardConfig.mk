@@ -184,4 +184,6 @@ EXTENDED_FONT_FOOTPRINT := true
 # CMHW
 BOARD_HARDWARE_CLASS := device/motorola/shamu/cmhw
 
+TARGET_USES_CM_POWERHAL := true
+
 -include vendor/motorola/shamu/BoardConfigVendor.mk
