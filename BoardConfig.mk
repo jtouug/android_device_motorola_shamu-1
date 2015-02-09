@@ -106,7 +106,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RECOVERY_FSTAB = device/motorola/shamu/fstab.shamu
 TARGET_RELEASETOOLS_EXTENSIONS := device/motorola/shamu
 
 # TWRP
@@ -118,6 +117,7 @@ BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_RECOVERY_FSTAB = device/motorola/shamu/fstab.shamu
 
 # Support Native Layer RF cutback
 BOARD_USES_CUTBACK_IN_RILD := true
