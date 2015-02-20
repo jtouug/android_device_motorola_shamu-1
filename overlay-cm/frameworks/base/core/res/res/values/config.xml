@@ -72,4 +72,7 @@
     <string name="config_perf_profile_prop">sys.perf.profile</string>
     <string name="config_perf_profile_default_entry">1</string>
 
+    <!-- Performance -->
+    <bool name="config_powerProfilesSupported">true</bool>
+
 </resources>
