@@ -21,6 +21,9 @@
 
 
 PRODUCT_COPY_FILES += \
+    device/motorola/shamu/twrp.fstab:recovery/root/etc/twrp.fstab
+
+PRODUCT_COPY_FILES += \
     device/motorola/shamu/init.shamu.rc:root/init.shamu.rc \
     device/motorola/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
     device/motorola/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
@@ -335,6 +338,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    dalvik.vm.heapgrowthlimit=256m
 
+# Storage
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.isUsbOtgEnabled=true
+
 # F2FS
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/format-system.sh:system/bin/format-system.sh
@@ -352,6 +359,9 @@ $(call inherit-product, build/target/product/verity.mk)
 # setup scheduler tunable
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.qualcomm.perf.cores_online=2
+
+PRODUCT_PACKAGES += \
+    power.shamu
 
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/frp

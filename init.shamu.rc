@@ -249,11 +249,8 @@ on boot
     # LED permissions
     chown system system /sys/class/leds/charging/brightness
     chown system system /sys/class/leds/charging/max_brightness
-    echo battery-charging > /sys/class/leds/charging/trigger
-    echo 1 > /sys/class/leds/charging/max_brightness
-    chmod 664 /sys/class/leds/red/brightness
-    chmod 664 /sys/class/leds/green/brightness
-    chmod 664 /sys/class/leds/blue/brightness
+    write /sys/class/leds/charging/trigger battery-charging
+    write /sys/class/leds/charging/max_brightness 1
 
     # Vibrator permissions
     chown system system /sys/vibrator/pwmvalue
