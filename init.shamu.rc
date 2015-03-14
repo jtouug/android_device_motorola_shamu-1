@@ -77,7 +77,6 @@ on fs
     setprop persist.data.df.agg.dl_size 4096
 
 on post-fs-data
-    mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
@@ -249,8 +248,11 @@ on boot
     # LED permissions
     chown system system /sys/class/leds/charging/brightness
     chown system system /sys/class/leds/charging/max_brightness
-    write /sys/class/leds/charging/trigger battery-charging
-    write /sys/class/leds/charging/max_brightness 1
+    echo battery-charging > /sys/class/leds/charging/trigger
+    echo 1 > /sys/class/leds/charging/max_brightness
+    chmod 664 /sys/class/leds/red/brightness
+    chmod 664 /sys/class/leds/green/brightness
+    chmod 664 /sys/class/leds/blue/brightness
 
     # Vibrator permissions
     chown system system /sys/vibrator/pwmvalue
@@ -258,7 +260,17 @@ on boot
 
     # Display color calibration
     chown system system /sys/devices/platform/kcal_ctrl.0/kcal
-    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_enable
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_cont
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_hue
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_invert
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_min
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_val
+
+    # Sunlight Enhancement mode
+    chown system system /sys/devices/virtual/graphics/fb0/hbm
+    chmod 0660 /sys/devices/virtual/graphics/fb0/hbm
 
 # subsystem ramdump collection
 on property:persist.sys.qc.sub.rdump.on=*
@@ -590,7 +602,7 @@ on property:persist.qca1530=no
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
-service mmi-touch-sh /system/bin/sh /init.mmi.touch.sh atmel
+service mmi-touch-sh /system/bin/init.mmi.touch.sh atmel
     class main
     user root
     oneshot
