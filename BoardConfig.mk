@@ -25,8 +25,8 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_NO_BOOTLOADER := true
 
 # Inline kernel building
-TARGET_KERNEL_CONFIG := franco_xd_defconfig
-TARGET_KERNEL_SOURCE := kernel/motorola/shamu
+TARGET_KERNEL_CONFIG := lk_defconfig
+TARGET_KERNEL_SOURCE := kernel/moto/shamu
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 
 BOARD_KERNEL_BASE := 0x00000000
@@ -48,7 +48,11 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 # of the device.
 MAX_EGL_CACHE_SIZE := 2048*1024
 
-BOARD_EGL_CFG := device/motorola/shamu/egl.cfg
+# Maximum dimension (width or height) of a virtual display that will be
+# handled by the hardware composer
+MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
+
+BOARD_EGL_CFG := device/moto/shamu/egl.cfg
 
 BOARD_USES_ALSA_AUDIO := true
 
@@ -67,19 +71,21 @@ WIFI_BUS := PCIE
 
 #Bluetooth defines
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/shamu/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/moto/shamu/bluetooth
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8084
 TARGET_BOOTLOADER_BOARD_NAME := shamu
 TARGET_NO_RPC := true
 
-TARGET_BOARD_INFO_FILE := device/motorola/shamu/board-info.txt
+TARGET_BOARD_INFO_FILE := device/moto/shamu/board-info.txt
 
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USES_ION := true
+TARGET_HW_DISK_ENCRYPTION := false
+TARGET_CRYPTFS_HW_PATH := device/moto/shamu/cryptfs_hw
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -101,18 +107,16 @@ COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 25253773312
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-
-# Make sure f2fs tools are built
-TARGET_USERIMAGES_USE_F2FS := true
-
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/motorola/shamu
+TARGET_RECOVERY_FSTAB = device/moto/shamu/fstab.shamu
+
+TARGET_RELEASETOOLS_EXTENSIONS := device/moto/shamu
 
 # TWRP
-TARGET_RECOVERY_DEVICE_DIRS := device/motorola/shamu
+TARGET_RECOVERY_DEVICE_DIRS := device/moto/shamu
 DEVICE_RESOLUTION := 1440x2560
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_L_CRYPTO := true
@@ -120,42 +124,45 @@ BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 TW_SCREEN_BLANK_ON_BOOT := true
-TARGET_RECOVERY_FSTAB = device/motorola/shamu/fstab.shamu
+TARGET_RECOVERY_FSTAB = device/moto/shamu/fstab.shamu
 
 # Support Native Layer RF cutback
 BOARD_USES_CUTBACK_IN_RILD := true
 
 BOARD_SEPOLICY_DIRS += \
-       device/motorola/shamu/sepolicy
+       device/moto/shamu/sepolicy
 
 BOARD_SEPOLICY_UNION += \
         adspd.te \
+        atfwd.te \
         bluetooth.te \
         bluetooth_loader.te \
+        bootanim.te \
         bridge.te \
         camera.te \
         device.te \
         domain.te \
         file.te \
         gsiffd.te \
-        init.te \
+        ims.te \
         irsc_util.te \
-        kernel.te \
         mdm_helper.te \
         mediaserver.te \
-        mmi_touch_sh.te \
         mpdecision.te \
         netd.te \
         netmgrd.te \
         platform_app.te \
+        property.te \
+        property_contexts \
         qmux.te \
         radio.te \
         rild.te \
         sensors.te \
+        service.te \
         ss_ramdump.te \
+        surfaceflinger.te \
         system_app.te \
         system_server.te \
-        tap2wake_dev.te \
         tcmd.te \
         tee.te \
         te_macros \
@@ -163,6 +170,7 @@ BOARD_SEPOLICY_UNION += \
         time.te \
         ueventd.te \
         untrusted_app.te \
+        zygote.te \
         file_contexts \
         genfs_contexts \
         service_contexts
@@ -190,11 +198,6 @@ TARGET_USE_ION_COMPAT := true
 EXTENDED_FONT_FOOTPRINT := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/motorola/shamu/cmhw
-
-# PowerHAL
-TARGET_POWERHAL_VARIANT := cm
-
-TARGET_USES_CM_POWERHAL := true
+BOARD_HARDWARE_CLASS := device/moto/shamu/cmhw
 
 -include vendor/motorola/shamu/BoardConfigVendor.mk

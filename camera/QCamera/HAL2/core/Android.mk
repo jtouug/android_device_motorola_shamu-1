@@ -42,7 +42,7 @@ LOCAL_HAL_FILES := \
         src/QCameraHWI.cpp \
         src/QCameraStream.cpp \
         src/QCameraHWI_Metatags.cpp \
-       src/QCameraStream_Preview.cpp
+        src/QCameraStream_Preview.cpp
 
 LOCAL_HAL_WRAPPER_FILES := ../wrapper/QualcommCamera.cpp
 
@@ -53,9 +53,9 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../../stack/mm-jpeg-interface/inc\
         $(TARGET_OUT_INTERMEDIATES)/include/mm-camera-interface_badger \
 
-LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc \
-        $(call project-path-for,qcom-display)/libgenlock \
-        $(call project-path-for,qcom-media)/libstagefrighthw \
+LOCAL_C_INCLUDES += hardware/qcom/display/libgralloc \
+        hardware/qcom/display/libgenlock \
+        hardware/qcom/media/libstagefrighthw \
 	system/media/camera/include
 
 # if debug service layer and up , use stub camera!

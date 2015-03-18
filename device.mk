@@ -19,45 +19,53 @@
 #
 # Everything in this directory will become public
 
-
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab
+    device/moto/shamu/init.shamu.rc:root/init.shamu.rc \
+    device/moto/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
+    device/moto/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
+    device/moto/shamu/fstab.shamu:root/fstab.shamu \
+    device/moto/shamu/ueventd.shamu.rc:root/ueventd.shamu.rc 
 
+# Kernel ramdisk files
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/init.shamu.rc:root/init.shamu.rc \
-    device/motorola/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
-    device/motorola/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
-    device/motorola/shamu/fstab.shamu:root/fstab.shamu \
-    device/motorola/shamu/ueventd.shamu.rc:root/ueventd.shamu.rc \
-    device/motorola/shamu/init.performance_profiles.rc:root/init.performance_profiles.rc
+    kernel/moto/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lkconfig \
+    kernel/moto/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lk \
+    kernel/moto/shamu/lk.ramdisk/sbin/nofreq-mpd:root/sbin/nofreq-mpd \
+    kernel/moto/shamu/lk.ramdisk/sbin/stock-mpd:root/sbin/stock-mpd \
+    kernel/moto/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh \
+    kernel/moto/shamu/lk.ramdisk/init.lk.rc:root/init.lk.rc \
+    kernel/moto/shamu/lk.ramdisk/sbin/supolicy:root/sbin/supolicy \
+    kernel/moto/shamu/lk.ramdisk/sbin/lk-selinux-mode.sh:root/sbin/lk-selinux-mode.sh
 
 # Input device files for shamu
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/motorola/shamu/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl:system/usr/keylayout/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl \
-    device/motorola/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
+    device/moto/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    device/moto/shamu/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl:system/usr/keylayout/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl \
+    device/moto/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/audio_policy.conf:system/etc/audio_policy.conf
+    device/moto/shamu/audio_policy.conf:system/etc/audio_policy.conf \
+    device/moto/shamu/audio_effects.conf:system/etc/audio_effects.conf
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/media_profiles.xml:system/etc/media_profiles.xml \
-    device/motorola/shamu/media_codecs.xml:system/etc/media_codecs.xml
+    device/moto/shamu/media_profiles.xml:system/etc/media_profiles.xml \
+    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/mixer_paths.xml:system/etc/mixer_paths.xml
+    device/moto/shamu/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.full.xml:system/etc/permissions/android.hardware.camera.full.xml \
+    frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
@@ -75,22 +83,29 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
+    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
 
 # For GPS
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/sec_config:system/etc/sec_config
+    device/moto/shamu/sec_config:system/etc/sec_config
 
 # Touch firmware updater
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.mmi.touch.sh:system/bin/init.mmi.touch.sh
+    $(LOCAL_PATH)/init.mmi.touch.sh:root/init.mmi.touch.sh
 
 # Add WiFi Firmware
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4356/device-bcm.mk)
 
 # WiFi cal NVRAM file
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    device/moto/shamu/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+
+# For SPN display
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/spn-conf.xml:system/etc/spn-conf.xml
+
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # This device is 560dpi.  However the platform doesn't
 # currently contain all of the bitmaps at 560dpi density so
@@ -102,7 +117,7 @@ PRODUCT_AAPT_PREF_CONFIG := 560dpi
 PRODUCT_CHARACTERISTICS := nosdcard
 
 DEVICE_PACKAGE_OVERLAYS := \
-    device/motorola/shamu/overlay
+    device/moto/shamu/overlay
 
 PRODUCT_PACKAGES := \
     libwpa_client \
@@ -146,12 +161,19 @@ PRODUCT_PACKAGES += \
     libaudio-resampler
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.audio.monitorRotation=true 
+
+# Missing Props
+PRODUCT_PROPERTY_OVERRIDES += \
+    fmas.spkr_6ch=35,20,110 \
+    fmas.spkr_2ch=35,25 \
+    fmas.spkr_angles=10 \
+    fmas.spkr_sgain=0 \
     media.aac_51_output_enabled=true \
     persist.audio.dualmic.config=endfire \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=false \
-    ro.audio.monitorRotation=true
+    persist.audio.fluence.speaker=false 
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -160,10 +182,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessingdescriptors
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    fmas.spkr_6ch=35,20,110 \
-    fmas.spkr_2ch=35,25 \
-    fmas.spkr_angles=10 \
-    fmas.spkr_sgain=0 \
     lpa.decode=false \
     lpa.releaselock=false \
     lpa.use-stagefright=false \
@@ -201,11 +219,11 @@ PRODUCT_PACKAGES += \
     qrngd
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608
+    ro.opengles.version=196609
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=560 \
-    persist.sys.lcd_density=560
+    persist.sys.lcd_density=482
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
@@ -215,7 +233,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.no_wait_for_card=1
+    persist.radio.no_wait_for_card=1 \
+    persist.radio.sib16_support=1
+
+#Reduce IMS logging
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.ims.disableDebugLogs=1
 
 #Disable QC Oem Hook
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -230,10 +253,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # LTE, CDMA, GSM/WCDMA
 PRODUCT_PROPERTY_OVERRIDES += \
-    telephony.lteOnCdmaDevice=1 \
-    telephony.lteOnGsmDevice=1 \
+    ro.telephony.default_network=10 \
     ro.telephony.get_imsi_from_sim=true \
-    ro.telephony.default_network=10 
+    telephony.lteOnCdmaDevice=1
+
+# Allow carrier tethering
+PRODUCT_PROPERTY_OVERRIDES += \
+net.tethering.noprovisioning=true
 
 #Opt's
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -254,13 +280,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.profiler=1 \
     dalvik.vm.isa.arm.features=lpae,div
 
-# SIM based FSG loading default enabled
+# SIM based FSG loading & MCFG activation
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.fsg_reload_on=1 \
-
-# Allow tethering without provisioning app
-PRODUCT_PROPERTY_OVERRIDES += \
-    net.tethering.noprovisioning=true
+    persist.radio.mcfg_enabled=1
 
 # Camera configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -274,7 +297,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/gps.conf:system/etc/gps.conf
+    device/moto/shamu/gps.conf:system/etc/gps.conf
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -295,7 +318,6 @@ PRODUCT_PACKAGES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    com.android.nfc_extras \
     nfc_nci.bcm2079x.default \
     NfcNci \
     Tag
@@ -303,21 +325,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    device/motorola/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/motorola/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
-
-# NFCEE access control
-PRODUCT_COPY_FILES += \
-    device/motorola/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+    device/moto/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 PRODUCT_COPY_FILES += \
-    device/motorola/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
+    device/moto/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
 
 # Enable for volte call
-AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := false
+AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.hwui.texture_cache_size=72 \
@@ -335,14 +353,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
    dalvik.vm.heapgrowthlimit=256m
-
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=true
-
-# F2FS
-PRODUCT_COPY_FILES += \
-    device/motorola/shamu/format-system.sh:system/bin/format-system.sh
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
@@ -373,3 +383,7 @@ PRODUCT_OEM_PROPERTIES := \
     ro.config.wallpaper_component \
     ro.oem.* \
     oem.*
+
+# Copy the qcril.db file from qcril to system. Useful to get the radio tech family for the camped operator
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/qcril.db:system/etc/ril/qcril.db

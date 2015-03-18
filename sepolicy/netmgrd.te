@@ -20,8 +20,7 @@ init_daemon_domain(netmgrd)
 allow netmgrd shared_log_device:chr_file rw_file_perms;
 
 # Access to /proc/sys/net/*
-allow netmgrd proc_net:file rw_file_perms;
-allow netmgrd proc_net:dir r_dir_perms;
+allow netmgrd proc_net:file write;
 
 # Runs /system/bin/toolbox
 allow netmgrd system_file:file rx_file_perms;
@@ -39,3 +38,10 @@ dontaudit netmgrd self:capability sys_module;
 # Set net_radio properties
 unix_socket_connect(netmgrd, property, init)
 allow netmgrd net_radio_prop:property_service set;
+
+# Permission to run netd commands
+allow netmgrd netd_socket:sock_file write;
+
+#Allow access to files associated with netd
+allow netmgrd net_data_file:dir r_dir_perms;
+

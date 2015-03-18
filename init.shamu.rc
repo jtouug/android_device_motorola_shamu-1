@@ -17,7 +17,7 @@
 import init.shamu.usb.rc
 import init.shamu.power.rc
 import init.shamu.diag.rc
-import init.performance_profiles.rc
+import init.lk.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -26,6 +26,8 @@ on early-init
     chown system system /sys/kernel/debug/kgsl/proc
 
 on init
+    chmod 0701 /mnt/media_rw
+    mkdir /mnt/media_rw/usbdisk 0775 system system
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
@@ -34,6 +36,7 @@ on init
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
+    mkdir /storage/usbdisk 0000 system system
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
@@ -52,9 +55,12 @@ on fs
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
+    wait /dev/block/platform/msm_sdcc.1/by-name/oem
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/oem /oem ro nosuid nodev context=u:object_r:oemfs:s0
 
-    wait /dev/block/platform/msm_sdcc.1/by-name/persist
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persist /persist nosuid nodev barrier=1
+    mkdir /fsg 0755 root root
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/mdm1m9kefs3 /fsg ro nosuid nodev barrier=0 context=u:object_r:fsg_file:s0
+
     restorecon_recursive /persist
     mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
@@ -62,12 +68,6 @@ on fs
     mkdir /persist/public 0755 system radio
     mkdir /persist/public/hiddenmenu 0775 system radio
     mkdir /persist/public/hiddenmenu/data 0775 system radio
-
-    wait /dev/block/platform/msm_sdcc.1/by-name/oem
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/oem /oem ro nosuid nodev context=u:object_r:oemfs:s0
-
-    mkdir /fsg 0755 root root
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/mdm1m9kefs3 /fsg ro nosuid nodev barrier=0 context=u:object_r:fsg_file:s0
 
     # Enable rmnet data and aggregation
     setprop persist.rmnet.mux enabled
@@ -77,6 +77,7 @@ on fs
     setprop persist.data.df.agg.dl_size 4096
 
 on post-fs-data
+    mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
@@ -103,11 +104,17 @@ on post-fs-data
     # rild files
     mkdir /data/misc/audio_cutback 0770 radio audio
 
+    # lkconfig permissions
+    chmod 0700 /sbin/lk-post-boot.sh
+    chmod 0755 /sbin/lkconfig
+    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
+
     # Allow subsystem (modem etc) debugging
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+    # write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+
     write /sys/kernel/boot_adsp/boot 1
 
     # Subsytem Restart
@@ -135,6 +142,8 @@ on boot
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     chown bluetooth net_bt_stack /sys/module/hci_uart/parameters/ath_lpm
     chown bluetooth net_bt_stack /sys/module/hci_uart/parameters/ath_btwrite
+    chown system system /sys/class/leds/charging/brightness
+    chown system system /sys/class/leds/charging/max_brightness
     chown system system /sys/module/sco/parameters/disable_esco
     chown bluetooth net_bt_stack /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
@@ -176,6 +185,10 @@ on boot
     chown system system /sys/bus/i2c/devices/1-004a/tsp
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # e/frandom permissions
+    chmod 444 /dev/erandom
+    chmod 444 /dev/frandom
 
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
@@ -245,11 +258,9 @@ on boot
     chown media media /sys/devices/c55_ctrl/gpio_core/value
     chown media media /sys/devices/c55_ctrl/gpio_reset/value
 
+    chmod 0644 /proc/cmdline
+
     # LED permissions
-    chown system system /sys/class/leds/charging/brightness
-    chown system system /sys/class/leds/charging/max_brightness
-    echo battery-charging > /sys/class/leds/charging/trigger
-    echo 1 > /sys/class/leds/charging/max_brightness
     chmod 664 /sys/class/leds/red/brightness
     chmod 664 /sys/class/leds/green/brightness
     chmod 664 /sys/class/leds/blue/brightness
@@ -324,12 +335,16 @@ on post-fs-data
     mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
+    #Create directories for gpsone_daemon services
+    mkdir /data/misc/gpsone_d 0770 system gps
+
+    #Create directories for QuIPS
+    mkdir /data/misc/quipc 0770 gps system
+
     #Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
     mkdir /data/misc/location/xtwifi 0770 gps gps
-    mkdir /data/misc/location/quipc 0770 gps system
-    mkdir /data/misc/location/gsiff 0770 gps gps
 
     #Create directory from IMS services
     mkdir /data/shared 0755
@@ -513,12 +528,6 @@ service adspd /system/bin/adspd /dev/ttyHS3
    user media
    group media input
 
-#start GNSS/Sensor interface daemon
-service gsiff_daemon /system/vendor/bin/gsiff_daemon
-    class late_start
-    user gps
-    group gps net_raw
-
 on property:sys.boot_completed=1
     start qcom-post-boot
 
@@ -550,15 +559,18 @@ on property:persist.usb.chgdisabled=1
 on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
+   class late_start
+   disabled
+
 service qseecomd /system/bin/qseecomd
-    class core
-    user root
-    group root
+   class core
+   user root
+   group root
 
 service mpdecision /system/bin/mpdecision --avg_comp
-    class main
-    user root
-    disabled
+   class main
+   user root
 
 service ss_ramdump /system/bin/subsystem_ramdump
     class main
@@ -567,14 +579,14 @@ service ss_ramdump /system/bin/subsystem_ramdump
     disabled
 
 service thermal-engine /system/bin/thermal-engine
-    class main
-    user root
-    group root
+   class main
+   user root
+   group root
 
 service time_daemon /system/bin/time_daemon
-    class late_start
-    user root
-    group root
+   class late_start
+   user root
+   group root
 
 on property:init.svc.bootanim=stopped
     start usf-post-boot
@@ -602,7 +614,7 @@ on property:persist.qca1530=no
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
-service mmi-touch-sh /system/bin/init.mmi.touch.sh atmel
+service mmi-touch-sh /system/bin/sh /init.mmi.touch.sh atmel
     class main
     user root
     oneshot
@@ -631,3 +643,8 @@ on property:ro.mdm_helper_proxy_req=true
 
 on property:init.svc.ril-daemon=running
     setprop ro.mdm_helper_proxy_req true
+
+service atfwd /system/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio

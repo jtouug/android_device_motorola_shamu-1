@@ -1,5 +1,6 @@
 /data/cam_socket[23]           u:object_r:camera_socket:s0
 /data/diag_logs(/.*)?          u:object_r:diag_logs:s0
+#/data/misc/radio(/.*)?         u:object_r:radio_data_file:s0
 /data/nfc(/.*)?                u:object_r:nfc_data_file:s0
 /data/time(/.*)?               u:object_r:time_data_file:s0
 /data/misc/location/gsiff(/.*)? u:object_r:gsiffd_data_file:s0
@@ -18,7 +19,7 @@
 /dev/ttyHS3                    u:object_r:adspd_device:s0
 
 #Serial console
-/dev/ttyHSL0                   u:object_r:console_device:s0
+/dev/ttyHSL0                   u:object_r:tty_device:s0
 
 # STOPSHIP b/16455932
 /dev/vfsspi                    u:object_r:fingerprint_device:s0
@@ -49,6 +50,7 @@
 
 # tee devices
 /dev/block/mmcblk0rpmb          u:object_r:drm_block_device:s0
+/dev/block/mmcblk0p34           u:object_r:drm_block_device:s0
 
 # Used by keystore to access trustzone
 /dev/qseecom                   u:object_r:tee_device:s0
@@ -75,6 +77,10 @@
 /dev/socket/sensor_ctl_socket   u:object_r:sensors_socket:s0
 /dev/socket/mpdecision(/.*)?    u:object_r:mpdecision_socket:s0
 
+#Add context for IMS Socket node
+/dev/socket/ims_qmid            u:object_r:ims_socket:s0
+/dev/socket/ims_datad           u:object_r:ims_socket:s0
+
 # Shared memory log
 /dev/smem_log                   u:object_r:shared_log_device:s0
 
@@ -98,6 +104,9 @@
 
 /dev/v4l-subdev[0-9]*           u:object_r:video_device:s0
 
+/dev/erandom                    u:object_r:urandom_device:s0
+/dev/frandom                    u:object_r:random_device:s0
+
 # Persist firmware filesystem
 /persist(/.*)?                  u:object_r:persist_file:s0
 /persist/data(/.*)?             u:object_r:persist_data_file:s0
@@ -112,7 +121,6 @@
 /system/bin/bdAddrLoader        u:object_r:bluetooth_loader_exec:s0
 /system/bin/bridgemgrd          u:object_r:bridge_exec:s0
 /system/vendor/bin/gsiff_daemon u:object_r:gsiffd_exec:s0
-/system/bin/init\.mmi\.touch\.sh u:object_r:mmi_touch_sh_exec:s0
 /system/bin/irsc_util           u:object_r:irsc_util_exec:s0
 /system/bin/ks                  u:object_r:mdm_helper_exec:s0
 /system/bin/mdm_helper          u:object_r:mdm_helper_exec:s0
@@ -127,6 +135,7 @@
 /system/bin/thermal-engine      u:object_r:thermald_exec:s0
 /system/bin/time_daemon         u:object_r:time_exec:s0
 /system/bin/tcmd_mini           u:object_r:tcmd_exec:s0
+/system/bin/ATFWD-daemon        u:object_r:atfwd_exec:s0
 
 # Bluetooth
 /sys/class/rfkill/rfkill0/state u:object_r:sysfs_bluetooth_writable:s0
@@ -137,9 +146,6 @@
 
 # Sysfs files used by qmuxd
 /sys/devices/virtual/smdpkt/smdcntl([0-9])+/open_timeout u:object_r:sysfs_smdcntl_open_timeout:s0
-
-# mmi_touch related /sys files
-/sys/devices/f9966000\.i2c/i2c-1/1-004a(/.*)?            u:object_r:sysfs_mmi_touch:s0
 
 # Context for mpdecision
 /sys/module/msm_thermal/core_control/cpus_offlined              u:object_r:sysfs_mpdecision:s0

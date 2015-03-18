@@ -8,6 +8,8 @@ type mpdecision_socket, file_type;
 type qmuxd_socket, file_type;
 type sensors_socket, file_type;
 type thermald_socket, file_type;
+# Socket node needed by ims_data daemon
+type ims_socket, file_type;
 
 type diag_logs, file_type, data_file_type;
 type ram_dump_logs, file_type, data_file_type;
@@ -22,7 +24,6 @@ type sysfs_rmnet, fs_type, sysfs_type;
 type sysfs_smdcntl_open_timeout, fs_type, sysfs_type;
 type sysfs_xhci_msm_hsic, fs_type, sysfs_type;
 type sysfs_msm_hsic_host, fs_type, sysfs_type;
-type sysfs_mmi_touch, fs_type, sysfs_type;
 
 type persist_file, file_type;
 type persist_data_file, file_type;
@@ -40,5 +41,5 @@ type sysfs_capsense_update, fs_type, sysfs_type;
 type sysfs_sar_wifi, fs_type, sysfs_type;
 
 type tap2wake_dev, fs_type, sysfs_type;
-type sysfs_vibrator, fs_type, sysfs_type;
 type sysfs_display, fs_type, sysfs_type;
+type sysfs_vibrator, fs_type, sysfs_type;

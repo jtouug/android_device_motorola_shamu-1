@@ -33,7 +33,12 @@ public class SunlightEnhancement {
      */
     public static boolean isSupported() {
         File f = new File(FILE_HBM);
-        return f.exists();
+
+        if(f.exists()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
