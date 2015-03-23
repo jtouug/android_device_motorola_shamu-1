@@ -18,5 +18,7 @@ PRODUCT_MANUFACTURER := motorola
 # Enable Torch
 #PRODUCT_PACKAGES += Torch
 
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=shamu BUILD_FINGERPRINT=google/shamu/shamu:5.1/LMY47E/1748839:user/release-keys PRIVATE_BUILD_DESC="shamu-user 5.1 LMY47E 1748839 release-keys"
+
 # Copy device specific prebuilt files.
 PRODUCT_BOOTANIMATION := device/moto/shamu/bootanimation.zip
