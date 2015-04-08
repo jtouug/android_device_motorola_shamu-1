@@ -32,10 +32,84 @@ PRODUCT_COPY_FILES += \
     kernel/moto/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lk \
     kernel/moto/shamu/lk.ramdisk/sbin/nofreq-mpd:root/sbin/nofreq-mpd \
     kernel/moto/shamu/lk.ramdisk/sbin/stock-mpd:root/sbin/stock-mpd \
+    kernel/moto/shamu/lk.ramdisk/sbin/lk-early-boot.sh:root/sbin/lk-post-early.sh \
     kernel/moto/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh \
     kernel/moto/shamu/lk.ramdisk/init.lk.rc:root/init.lk.rc \
-    kernel/moto/shamu/lk.ramdisk/sbin/supolicy:root/sbin/supolicy \
-    kernel/moto/shamu/lk.ramdisk/sbin/lk-selinux-mode.sh:root/sbin/lk-selinux-mode.sh
+    kernel/moto/shamu/lk.ramdisk/sbin/supolicy:root/sbin/supolicy
+
+# UKM
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/ukm/config.json.generate.sound:system/UKM/config.json.generate.sound \
+    device/moto/shamu/ukm/config.json.generate.cpuvolt:system/UKM/config.json.generate.cpuvolt \
+    device/moto/shamu/ukm/config.json.generate.tools:system/UKM/config.json.generate.tools \
+    device/moto/shamu/ukm/config.json.generate.gamma:system/UKM/config.json.generate.gamma \
+    device/moto/shamu/ukm/config.json.generate.mem:system/UKM/config.json.generate.mem \
+    device/moto/shamu/ukm/config.json.generate.profile:system/UKM/config.json.generate.profile \
+    device/moto/shamu/ukm/config.json.generate.speaker:system/UKM/config.json.generate.speaker \
+    device/moto/shamu/ukm/config.json.generate.bprop:system/UKM/config.json.generate.bprop \
+    device/moto/shamu/ukm/config.json.generate.cpu:system/UKM/config.json.generate.cpu \
+    device/moto/shamu/ukm/config.json.generate.io:system/UKM/config.json.generate.io \
+    device/moto/shamu/ukm/config.json.generate.gpu:system/UKM/config.json.generate.gpu \
+    device/moto/shamu/ukm/files/bck_prof:system/UKM/files/bck_prof \
+    device/moto/shamu/ukm/files/gamma_prof:system/UKM/files/gamma_prof \
+    device/moto/shamu/ukm/files/volt_prof:system/UKM/files/volt_prof \
+    device/moto/shamu/ukm/files/gammafranco_prof:system/UKM/files/gammafranco_prof \
+    device/moto/shamu/ukm/files/dropcaches_prof:system/UKM/files/dropcaches_prof \
+    device/moto/shamu/ukm/files/lmk_prof:system/UKM/files/lmk_prof \
+    device/moto/shamu/ukm/files/gammafrancoN5_prof:system/UKM/files/gammafrancoN5_prof \
+    device/moto/shamu/ukm/files/gammafaux_prof:system/UKM/files/gammafaux_prof \
+    device/moto/shamu/ukm/files/wake_prof:system/UKM/files/wake_prof \
+    device/moto/shamu/ukm/files/speaker_prof:system/UKM/files/speaker_prof \
+    device/moto/shamu/ukm/files/sound_prof:system/UKM/files/sound_prof \
+    device/moto/shamu/ukm/config.json.generate.wake:system/UKM/config.json.generate.wake \
+    device/moto/shamu/ukm/config.json.generate.thermal:system/UKM/config.json.generate.thermal \
+    device/moto/shamu/ukm/config.json.generate.hotplug:system/UKM/config.json.generate.hotplug \
+    device/moto/shamu/ukm/sqlite3:system/UKM/sqlite3 \
+    device/moto/shamu/ukm/busybox:system/UKM/busybox \
+    device/moto/shamu/ukm/config.json.generate.misc:system/UKM/config.json.generate.misc \
+    device/moto/shamu/ukm/config.json.generate.error:system/UKM/config.json.generate.error \
+    device/moto/shamu/ukm/actions/soundfaux:system/UKM/actions/soundfaux \
+    device/moto/shamu/ukm/actions/devtools:system/UKM/actions/devtools \
+    device/moto/shamu/ukm/actions/voltage:system/UKM/actions/voltage \
+    device/moto/shamu/ukm/actions/intellithermal:system/UKM/actions/intellithermal \
+    device/moto/shamu/ukm/actions/restorebackup:system/UKM/actions/restorebackup \
+    device/moto/shamu/ukm/actions/socset:system/UKM/actions/socset \
+    device/moto/shamu/ukm/actions/gpuset:system/UKM/actions/gpuset \
+    device/moto/shamu/ukm/actions/mpdboostfreq:system/UKM/actions/mpdboostfreq \
+    device/moto/shamu/ukm/actions/boolean:system/UKM/actions/boolean \
+    device/moto/shamu/ukm/actions/buildprop:system/UKM/actions/buildprop \
+    device/moto/shamu/ukm/actions/bracket-option:system/UKM/actions/bracket-option \
+    device/moto/shamu/ukm/actions/touch:system/UKM/actions/touch \
+    device/moto/shamu/ukm/actions/wake:system/UKM/actions/wake \
+    device/moto/shamu/ukm/actions/serviceset:system/UKM/actions/serviceset \
+    device/moto/shamu/ukm/actions/speakerfaux:system/UKM/actions/speakerfaux \
+    device/moto/shamu/ukm/actions/ioset:system/UKM/actions/ioset \
+    device/moto/shamu/ukm/actions/sqlite:system/UKM/actions/sqlite \
+    device/moto/shamu/ukm/actions/dropcaches:system/UKM/actions/dropcaches \
+    device/moto/shamu/ukm/actions/lmk:system/UKM/actions/lmk \
+    device/moto/shamu/ukm/actions/generic:system/UKM/actions/generic \
+    device/moto/shamu/ukm/actions/live:system/UKM/actions/live \
+    device/moto/shamu/ukm/actions/cpuvolt:system/UKM/actions/cpuvolt \
+    device/moto/shamu/ukm/actions/numeric:system/UKM/actions/numeric \
+    device/moto/shamu/ukm/actions/gamma:system/UKM/actions/gamma \
+    device/moto/shamu/ukm/actions/cpuset:system/UKM/actions/cpuset \
+    device/moto/shamu/ukm/actions/printk:system/UKM/actions/printk \
+    device/moto/shamu/ukm/actions/zram:system/UKM/actions/zram \
+    device/moto/shamu/ukm/actions/powersuspend:system/UKM/actions/powersuspend \
+    device/moto/shamu/ukm/actions/cpuboostibf:system/UKM/actions/cpuboostibf \
+    device/moto/shamu/ukm/config.json.generate:system/UKM/config.json.generate \
+    device/moto/shamu/ukm/config.json.generate.status:system/UKM/config.json.generate.status \
+    device/moto/shamu/ukm/debug/speed_bin:system/UKM/debug/speed_bin \
+    device/moto/shamu/ukm/debug/pvs_bin:system/UKM/debug/pvs_bin \
+    device/moto/shamu/ukm/debug/last_kmsg:system/UKM/debug/last_kmsg \
+    device/moto/shamu/ukm/config.json.generate.adv:system/UKM/config.json.generate.adv \
+    device/moto/shamu/ukm/device/bacon.sh:system/UKM/device/bacon.sh \
+    device/moto/shamu/ukm/device/deb.sh:system/UKM/device/deb.sh \
+    device/moto/shamu/ukm/device/hammerhead.sh:system/UKM/device/hammerhead.sh \
+    device/moto/shamu/ukm/device/maguro.sh:system/UKM/device/maguro.sh \
+    device/moto/shamu/ukm/device/mako.sh:system/UKM/device/mako.sh \
+    device/moto/shamu/ukm/device/.device.sh:system/UKM/device/.device.sh \
+    device/moto/shamu/ukm/config.json.generate.info:system/UKM/config.json.generate.info
 
 # Input device files for shamu
 PRODUCT_COPY_FILES += \
