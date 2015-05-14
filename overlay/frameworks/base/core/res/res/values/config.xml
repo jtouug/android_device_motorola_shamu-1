@@ -318,7 +318,10 @@
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
     <!-- Screen brightness when dozing -->
-    <!--integer name="config_screenBrightnessDoze">10</integer-->
+    <integer name="config_screenBrightnessDoze">10</integer>
+
+    <!-- Doze: force using accelerometer as pick up sensor -->
+    <bool name="config_dozeUseAccelerometer">true</bool>
 
     <!-- Wether doze feature is enabled by default in settings. -->
     <bool name="config_doze_enabled_by_default">true</bool>
