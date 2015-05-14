@@ -340,7 +340,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Allow carrier tethering
 PRODUCT_PROPERTY_OVERRIDES += \
-net.tethering.noprovisioning=true
+    net.tethering.noprovisioning=true
 
 #Opt's
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -408,6 +408,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     device/moto/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
+
+# Disable modem ramdumps
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.qc.sub.rdump.on=0
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
