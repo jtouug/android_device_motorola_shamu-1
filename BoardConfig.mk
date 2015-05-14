@@ -25,7 +25,7 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_NO_BOOTLOADER := true
 
 # Inline kernel building
-TARGET_KERNEL_CONFIG := lk_defconfig
+TARGET_KERNEL_CONFIG := hells_defconfig
 TARGET_KERNEL_SOURCE := kernel/moto/shamu
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 
@@ -111,8 +111,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RECOVERY_FSTAB = device/moto/shamu/fstab.shamu
-
 TARGET_RELEASETOOLS_EXTENSIONS := device/moto/shamu
 
 # TWRP
@@ -187,9 +185,6 @@ BOARD_HAS_AUDIO_DSP := true
 USE_DEVICE_SPECIFIC_CAMERA:= true
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.shamu
-
-# Time
-BOARD_USES_QC_TIME_SERVICES := true
 
 # Enable ion compatibility
 TARGET_USE_ION_COMPAT := true
