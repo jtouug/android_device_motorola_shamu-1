@@ -22,9 +22,5 @@ PRIVATE_BUILD_DESC="shamu-user 5.1.1 LMY48B 1863243 release-keys"
 # Enable Torch
 #PRODUCT_PACKAGES += Torch
 
-PRODUCT_BUILD_PROP_OVERRIDES += \
- BUILD_FINGERPRINT=google/shamu/shamu:5.1/LMY47I/1767468:user/release-keys \
- PRIVATE_BUILD_DESC="shamu-user 5.1 LMY47I 1767468 release-keys" 
-
 # Copy device specific prebuilt files.
 PRODUCT_BOOTANIMATION := device/moto/shamu/bootanimation.zip
