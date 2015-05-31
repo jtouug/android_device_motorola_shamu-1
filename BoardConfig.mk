@@ -96,6 +96,8 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
+DONT_DEXPREOPT_PREBUILTS := true
+
 TARGET_TOUCHBOOST_FREQUENCY := 1500
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -138,6 +140,7 @@ BOARD_SEPOLICY_UNION += \
         bootanim.te \
         bridge.te \
         camera.te \
+        cnd.te \
         device.te \
         domain.te \
         file.te \
