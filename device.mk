@@ -164,7 +164,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.dualmic.config=endfire \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=false 
+    persist.audio.fluence.speaker=false \
+    ro.audio.monitorRotation=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=1
@@ -244,6 +245,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Rich Communications Service is disabled in 5.1
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.rcs.supported=0
+
+#Reduce IMS logging
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.ims.disableDebugLogs=1
 
 #Reduce IMS logging
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -363,10 +368,6 @@ $(call inherit-product-if-exists, vendor/qcom/gpu/msm8x84/msm8x84-gpu-vendor.mk)
 # setup dm-verity configs.
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/msm_sdcc.1/by-name/system
 $(call inherit-product, build/target/product/verity.mk)
-
-# setup scheduler tunable
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.perf.cores_online=2
 
 PRODUCT_PACKAGES += \
     power.shamu

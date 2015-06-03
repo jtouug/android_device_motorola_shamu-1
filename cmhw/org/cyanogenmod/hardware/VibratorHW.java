@@ -34,8 +34,8 @@ public class VibratorHW {
         return 0;
     }
 
-    public static int getWarningThreshold() {
-        return 85;
+    public static int getWarningThreshold()  {
+        return -1;
     }
 
     public static int getCurIntensity()  {
