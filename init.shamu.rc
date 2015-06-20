@@ -106,31 +106,9 @@ on post-fs-data
     # rild files
     mkdir /data/misc/audio_cutback 0770 radio audio
 
-    # Hardware tunables
-    chown root system /sys/bus/i2c/devices/1-004a/tsp
-    chmod 0664 /sys/bus/i2c/devices/1-004a/tsp
-    restorecon /sys/bus/i2c/devices/1-004a/tsp
-    chown root system /sys/drv2605/rtp_strength
-    chmod 0664 /sys/drv2605/rtp_strength
-    restorecon /sys/drv2605/rtp_strength
-
-    # Wake Gestures
-    write /sys/android_touch/wake_gestures 1
-    chown system system /sys/android_touch/doubletap2wake
-    chmod 0644 /sys/android_touch/doubletap2wake
-    restorecon /sys/android_touch/doubletap2wake
-    chown system system /sys/android_touch/sweep2wake
-    chmod 0644 /sys/android_touch/sweep2wake
-    restorecon /sys/android_touch/sweep2wake
-    chown system system /sys/android_touch/sweep2sleep
-    chmod 0644 /sys/android_touch/sweep2sleep
-    restorecon /sys/android_touch/sweep2sleep
-    chown system system /sys/android_touch/wake_gestures
-    chmod 0644 /sys/android_touch/wake_gestures
-    restorecon /sys/android_touch/wake_gestures
-    chown system system /sys/android_touch/vib_strength
-    chmod 0644 /sys/android_touch/vib_strength
-    restorecon /sys/android_touch/vib_strength
+    # postboot permissions
+    chmod 0755 /sbin/post-init.sh
+    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -206,9 +184,11 @@ on boot
 
     setprop ro.telephony.call_ring.multiple false
 
-    chown system system /sys/bus/i2c/devices/1-004a/tsp
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # e/frandom permissions
+    chmod 444 /dev/erandom
+    chmod 444 /dev/frandom
 
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
@@ -288,6 +268,24 @@ on boot
     # Vibrator permissions
     chown system system /sys/vibrator/pwmvalue
     chmod 0644 /sys/vibrator/pwmvalue
+
+    # Hardware tunables
+    chown system system /sys/bus/i2c/devices/1-004a/tsp
+    chmod 0644 /sys/bus/i2c/devices/1-004a/tsp
+    chown system system /sys/drv2605/rtp_strength
+    chmod 0644 /sys/drv2605/rtp_strength
+
+    # Wake Gestures
+    chown system system /sys/android_touch/doubletap2wake
+    chmod 0644 /sys/android_touch/doubletap2wake
+    chown system system /sys/android_touch/sweep2wake
+    chmod 0644 /sys/android_touch/sweep2wake
+    chown system system /sys/android_touch/sweep2sleep
+    chmod 0644 /sys/android_touch/sweep2sleep
+    chown system system /sys/android_touch/wake_gestures
+    chmod 0644 /sys/android_touch/wake_gestures
+    chown system system /sys/android_touch/vib_strength
+    chmod 0644 /sys/android_touch/vib_strength
 
     # Display color calibration
     chown system system /sys/devices/platform/kcal_ctrl.0/kcal

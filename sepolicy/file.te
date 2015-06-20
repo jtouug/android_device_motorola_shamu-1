@@ -44,12 +44,13 @@ type tap2wake_dev, fs_type, sysfs_type;
 type sysfs_display, fs_type, sysfs_type;
 type sysfs_vibrator, fs_type, sysfs_type;
 
+# Define cnd socket and data file type
+type cnd_socket, file_type;
+type cnd_data_file, file_type;
+
+# benzoCore Tunables
 type doubletap2wake_dev, fs_type, sysfs_type;
 type sweep2wake_dev, fs_type, sysfs_type;
 type sweep2sleep_dev, fs_type, sysfs_type;
 type wakegestures_dev, fs_type, sysfs_type;
 type vib_strength_dev, fs_type, sysfs_type;
-
-# Define cnd socket and data file type
-type cnd_socket, file_type;
-type cnd_data_file, file_type;
