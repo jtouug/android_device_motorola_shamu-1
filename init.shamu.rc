@@ -24,6 +24,9 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
+    # Set SELinux to Permissive
+    setenforce 0
+
 on init
     chmod 0701 /mnt/media_rw
     mkdir /mnt/media_rw/usbdisk 0775 system system
@@ -53,6 +56,7 @@ on init
 on fs
     mount_all fstab.shamu
     setprop ro.crypto.fuse_sdcard true
+    setprop ro.secure 0
 
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
@@ -107,7 +111,7 @@ on post-fs-data
     mkdir /data/misc/audio_cutback 0770 radio audio
 
     # postboot permissions
-    chmod 0755 /sbin/post-init.sh
+    chmod 0755 /sbin/post-boot.sh
     chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on early-boot
@@ -183,6 +187,8 @@ on boot
     symlink /dev/video33 /dev/video/venus_enc
 
     setprop ro.telephony.call_ring.multiple false
+
+    chown system system /sys/bus/i2c/devices/1-004a/tsp
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
@@ -275,6 +281,16 @@ on boot
     chown system system /sys/drv2605/rtp_strength
     chmod 0644 /sys/drv2605/rtp_strength
 
+    # Adreno Idler
+    chown system system /sys/module/adreno_idler/parameters/adreno_idler_active
+    chmod 0644 /sys/module/adreno_idler/parameters/adreno_idler_active
+    chown system system /sys/module/adreno_idler/parameters/adreno_idler_downdifferential
+    chmod 0644 /sys/module/adreno_idler/parameters/adreno_idler_downdifferential
+    chown system system /sys/module/adreno_idler/parameters/adreno_idler_idewait
+    chmod 0644 /sys/module/adreno_idler/parameters/adreno_idler_idewait
+    chown system system /sys/module/adreno_idler/parameters/adreno_idler_ideworkload
+    chmod 0644 /sys/module/adreno_idler/parameters/adreno_idler_ideworkload
+
     # Wake Gestures
     chown system system /sys/android_touch/doubletap2wake
     chmod 0644 /sys/android_touch/doubletap2wake
@@ -286,6 +302,7 @@ on boot
     chmod 0644 /sys/android_touch/wake_gestures
     chown system system /sys/android_touch/vib_strength
     chmod 0644 /sys/android_touch/vib_strength
+    write /sys/android_touch/vib_strength 40
 
     # Display color calibration
     chown system system /sys/devices/platform/kcal_ctrl.0/kcal
