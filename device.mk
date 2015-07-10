@@ -282,10 +282,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #Opt's
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.fw.bg_apps_limit=24 \
     pm.sleep.mode=1 \
     wifi.supplicant_scan_interval=180 \
-    windowsmgr.max_events_per_sec=150 \
     debug.performance.tuning=1 \
     ro.ril.power_collapse=1 \
     persist.service.lgospd.enable=0 \
@@ -355,7 +353,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/init.shamu.diag.rc.userdebug:root/init.shamu.diag.rc
+    device/moto/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
 
 # Enable for volte call
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
