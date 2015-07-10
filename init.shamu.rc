@@ -17,6 +17,7 @@
 import init.shamu.usb.rc
 import init.shamu.power.rc
 import init.shamu.diag.rc
+import init.benzo.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -31,9 +32,6 @@ on init
     chmod 0701 /mnt/media_rw
     mkdir /mnt/media_rw/usbdisk 0775 system system
     # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/usbdisk 0700 root root
-
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
@@ -109,10 +107,6 @@ on post-fs-data
 
     # rild files
     mkdir /data/misc/audio_cutback 0770 radio audio
-
-    # postboot permissions
-    chmod 0755 /sbin/post-boot.sh
-    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -192,10 +186,6 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # e/frandom permissions
-    chmod 444 /dev/erandom
-    chmod 444 /dev/frandom
-
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
@@ -274,12 +264,6 @@ on boot
     # Vibrator permissions
     chown system system /sys/vibrator/pwmvalue
     chmod 0644 /sys/vibrator/pwmvalue
-
-    # Hardware tunables
-    chown system system /sys/bus/i2c/devices/1-004a/tsp
-    chmod 0644 /sys/bus/i2c/devices/1-004a/tsp
-    chown system system /sys/drv2605/rtp_strength
-    chmod 0644 /sys/drv2605/rtp_strength
 
     # Adreno Idler
     chown system system /sys/module/adreno_idler/parameters/adreno_idler_active
@@ -455,22 +439,6 @@ service netmgrd /system/bin/netmgrd
     class main
     group radio
 
-service imsqmidaemon /system/bin/imsqmidaemon
-    class main
-    user system
-    socket ims_qmid stream 0660 system radio
-    group radio log
-
-service imsdatadaemon /system/bin/imsdatadaemon
-    class main
-    user root
-    socket ims_datad stream 0660 system radio
-    group system wifi radio inet log
-    disabled
-
-on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon
-
 service sensors /system/bin/sensors.qcom
     class core
     user root
@@ -578,11 +546,6 @@ service adspd /system/bin/adspd /dev/ttyHS3
    socket adspdsock stream 0660 media media
    user media
    group media input
-
-#external storage
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023  /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
 
 on property:sys.boot_completed=1
     start qcom-post-boot
@@ -697,7 +660,3 @@ service atfwd /system/bin/ATFWD-daemon
     class late_start
     user system
     group system radio
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
