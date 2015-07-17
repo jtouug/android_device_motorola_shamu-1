@@ -34,6 +34,9 @@ allow netmgrd self:netlink_xfrm_socket { create_socket_perms nlmsg_write nlmsg_r
 # b/17065650
 allow netmgrd self:socket create_socket_perms;
 
+#Allow communication with cnd
+unix_socket_connect(netmgrd, cnd, cnd)
+
 # CONFIG_MODULES not set in shamu_defconfig
 dontaudit netmgrd self:capability sys_module;
 

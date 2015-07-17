@@ -158,12 +158,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     fmas.spkr_2ch=35,25 \
     fmas.spkr_angles=10 \
     fmas.spkr_sgain=0 \
+	keyguard.no_require_sim=true \
     media.aac_51_output_enabled=true \
     persist.audio.dualmic.config=endfire \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=false \
+	persist.data.qmi.adb_logmask=0 \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.no_wait_for_card=1 \
+    persist.radio.sib16_support=1 \
     ro.audio.monitorRotation=true
+
+# WiFi calling
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true \
+    persist.radio.ignore_ims_wlan=1 \
+    persist.radio.data_con_rprt=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=1
@@ -182,7 +193,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     libqomx_core \
-    libmm-qcamera \
     libmmcamera_interface \
     libmmjpeg_interface \
     camera.msm8084 \
@@ -228,11 +238,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.no_wait_for_card=1 \
-    persist.radio.sib16_support=1
-
 # never dexopt the MotoSignature
 $(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
 
@@ -240,19 +245,9 @@ $(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
 PRODUCT_PACKAGES += \
     IMSEnabler
 
-# WiFi calling
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.iwlan.enable=true \
-    persist.radio.ignore_ims_wlan=1 \
-    persist.radio.data_con_rprt=1
-
 # Rich Communications Service is disabled in 5.1
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.rcs.supported=0
-
-#Reduce IMS logging
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.ims.disableDebugLogs=1
 
 #Reduce IMS logging
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -278,24 +273,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Allow carrier tethering
 PRODUCT_PROPERTY_OVERRIDES += \
-    net.tethering.noprovisioning=true
-
-#Opt's
-PRODUCT_PROPERTY_OVERRIDES += \
-    pm.sleep.mode=1 \
-    wifi.supplicant_scan_interval=180 \
-    debug.performance.tuning=1 \
-    ro.ril.power_collapse=1 \
-    persist.service.lgospd.enable=0 \
-    persist.service.pcsync.enable=0 \
-    ro.facelock.black_timeout=400 \
-    ro.facelock.det_timeout=1500 \
-    ro.facelock.rec_timeout=2500 \
-    ro.facelock.lively_timeout=2500 \
-    ro.facelock.est_max_time=600 \
-    ro.facelock.use_intro_anim=false \
-    dalvik.vm.profiler=1 \
-    dalvik.vm.isa.arm.features=lpae,div
+net.tethering.noprovisioning=true
 
 # SIM based FSG loading & MCFG activation
 PRODUCT_PROPERTY_OVERRIDES += \
