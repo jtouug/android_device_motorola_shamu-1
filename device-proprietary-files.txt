@@ -235,8 +235,8 @@ vendor/lib/libcneapiclient.so
 -priv-app/BuaContactAdapter/BuaContactAdapter.apk
 
 # Diagnostic
-bin/diag_klog
-bin/diag_mdlog
+#bin/diag_klog
+#bin/diag_mdlog
 etc/diag/mdm/FIT_V16_1.cfg
 etc/diag/mdm/FIT_V16_2_volte_full_ip.cfg
 etc/diag/mdm/FIT_V16_3_audio.cfg

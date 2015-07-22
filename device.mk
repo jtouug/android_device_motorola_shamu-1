@@ -341,7 +341,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
+    device/moto/shamu/init.shamu.diag.rc.userdebug:root/init.shamu.diag.rc
 
 # Enable for volte call
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
